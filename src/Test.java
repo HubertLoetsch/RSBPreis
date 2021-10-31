@@ -87,34 +87,7 @@ public class Test extends JFrame implements ActionListener {
         JT_Scheffknecht.setBounds(200, 170, 150, 20);
         add(JL_Scheffknecht);
         add(JT_Scheffknecht);
-/*
 
-        //Scheffknecht Tabelle
-        JL_braun = new JLabel("Braun: ");
-        JL_braun.setBounds(20, 110, 100, 20);
-        JT_braun = new JTextField(20);
-        JT_braun.setBounds(400, 110, 150, 20);
-        add(JL_braun);
-        add(JT_braun);
-
-        //Braun Tabelle
-        JL_tisa = new JLabel("Tisa: ");
-        JL_tisa.setBounds(20, 140, 100, 20);
-        JT_tisa = new JTextField(20);
-        JT_tisa.setBounds(400, 140, 150, 20);
-        add(JL_tisa);
-        add(JT_tisa);
-
-        //ScheffknechtExkl
-        JL_ScheffknechtExklZuschlag = new JLabel("Scheffknecht: ");
-        JL_ScheffknechtExklZuschlag.setBounds(20, 170, 180, 20);
-        JT_ScheffknechtExklZuschlag = new JTextField(20);
-        JT_ScheffknechtExklZuschlag.setBounds(400, 170, 150, 20);
-        add(JL_ScheffknechtExklZuschlag);
-        add(JT_ScheffknechtExklZuschlag);
-
-
- */
         setLayout(null);
         add(btn_search);
 

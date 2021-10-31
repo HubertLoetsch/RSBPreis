@@ -10,23 +10,16 @@ public class Test extends JFrame implements ActionListener {
     JLabel JL_plz;
     JLabel JL_braun;
     JLabel JL_tisa;
-    JLabel JL_ScheffknechtExklZuschlag;
+    JLabel JL_Scheffknecht;
+    JLabel JL_Land;
 
     JTextField JT_Ldm;
     JTextField JT_plz;
     JTextField JT_braun;
     JTextField JT_tisa;
-    static JTextField JT_ScheffknechtExklZuschlag;
-    JLabel JL_braun1;
-    JLabel JL_tisa1;
-    JLabel JL_ScheffknechtExklZuschlag1;
-    JTextField JT_braun1;
-    JTextField JT_tisa1;
-    static JTextField JT_ScheffknechtExklZuschlag1;
-    JTextField JT_scheffknechtinklZuschlag;
-    JTextField JT_DieselFloater;
+    static JTextField JT_Scheffknecht;
     JTextField JT_Land;
-    JLabel JL_Land;
+
 
     JButton btn_search;
 
@@ -88,12 +81,12 @@ public class Test extends JFrame implements ActionListener {
         add(JT_tisa);
 
         //ScheffknechtExkl
-        JL_ScheffknechtExklZuschlag = new JLabel("Scheffknecht: ");
-        JL_ScheffknechtExklZuschlag.setBounds(20, 170, 180, 20);
-        JT_ScheffknechtExklZuschlag = new JTextField(20);
-        JT_ScheffknechtExklZuschlag.setBounds(200, 170, 150, 20);
-        add(JL_ScheffknechtExklZuschlag);
-        add(JT_ScheffknechtExklZuschlag);
+        JL_Scheffknecht = new JLabel("Scheffknecht: ");
+        JL_Scheffknecht.setBounds(20, 170, 180, 20);
+        JT_Scheffknecht = new JTextField(20);
+        JT_Scheffknecht.setBounds(200, 170, 150, 20);
+        add(JL_Scheffknecht);
+        add(JT_Scheffknecht);
 /*
 
         //Scheffknecht Tabelle
@@ -136,14 +129,14 @@ public class Test extends JFrame implements ActionListener {
         ResultSet Rs = null;
         Function f = new Function();
 
-        Rs = f.find(JT_plz.getText(), JT_Ldm.getText());
+        Rs = f.find(JT_plz.getText(), JT_Ldm.getText(),JT_Land.getText());
         try {
             if (!Rs.next()) {
                 JOptionPane.showMessageDialog(null, "Keine Daten vorhanden!!!");
             } else {
                 JT_braun.setText(Rs.getString("braun"));
                 JT_tisa.setText(Rs.getString("tisa"));
-                JT_ScheffknechtExklZuschlag.setText(Rs.getString("ScheffknechtExklZuschlag"));
+                JT_Scheffknecht.setText(Rs.getString("Scheffknecht"));
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -155,15 +148,18 @@ public class Test extends JFrame implements ActionListener {
         Connection myConn = null;
         PreparedStatement myStmt = null;
         ResultSet myRs = null;
-        public ResultSet find(String plz, String ldm) {
+        public ResultSet find(String plz, String ldm,String Land) {
             try {
                 //Verbindung Zum server
-                myConn = DriverManager.getConnection("jdbc:mysql://192.168.56.101/Test", "app", "123abcABC!\"§");
+                myConn = DriverManager.getConnection("jdbc:mysql://192.168.56.101/TEST1", "app", "123abcABC!\"§");
                 //SQL abfrage
                // myStmt = myConn.prepareStatement("select ldm = ? and plz = ? from DE ");
-                myStmt = myConn.prepareStatement("select * from AT XOR DE plz = ? and ldm = ?");
-                myStmt.setString(1, plz);
-                myStmt.setString(2, ldm);
+                myStmt = myConn.prepareStatement("SELECT * FROM ENDLIST_CSV ec WHERE Land = ? and Plz=? and Ldm = ?");
+                //myStmt = myConn.prepareStatement("SELECT * FROM ENDLIST_CSV ec WHERE Plz = ? and Ldm=? and Land = ?");
+                myStmt.setString(1,Land);
+                myStmt.setString(2, plz);
+                myStmt.setString(3, ldm);
+
                 myRs = myStmt.executeQuery();
 
             } catch (Exception e) {

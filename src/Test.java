@@ -12,6 +12,8 @@ public class Test extends JFrame implements ActionListener {
     JLabel JL_tisa;
     JLabel JL_Scheffknecht;
     JLabel JL_Land;
+    JLabel JL_Zone;
+
 
     JTextField JT_Ldm;
     JTextField JT_plz;
@@ -19,6 +21,7 @@ public class Test extends JFrame implements ActionListener {
     JTextField JT_tisa;
     static JTextField JT_Scheffknecht;
     JTextField JT_Land;
+    JTextField JT_Zone;
 
 
     JButton btn_search;
@@ -54,6 +57,14 @@ public class Test extends JFrame implements ActionListener {
         JT_Ldm.setBounds(200, 80, 150, 20);
         add(JL_Ldm);
         add(JT_Ldm);
+
+        //Zone TOODOO
+        JL_Zone = new JLabel("Zone:");
+        JL_Zone.setBounds(360, 50, 140, 20);
+        JT_Zone = new JTextField(20);
+        JT_Zone.setBounds(400, 50, 80, 20);
+        add(JL_Zone);
+        add(JT_Zone);
 
         //Land
         JL_Land = new JLabel("Enter Land: ");
@@ -107,9 +118,11 @@ public class Test extends JFrame implements ActionListener {
             if (!Rs.next()) {
                 JOptionPane.showMessageDialog(null, "Keine Daten vorhanden!!!");
             } else {
+                JT_Zone.setText(Rs.getString("Zone"));
                 JT_braun.setText(Rs.getString("braun"));
                 JT_tisa.setText(Rs.getString("tisa"));
                 JT_Scheffknecht.setText(Rs.getString("Scheffknecht"));
+                //Zone
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -126,9 +139,7 @@ public class Test extends JFrame implements ActionListener {
                 //Verbindung Zum server
                 myConn = DriverManager.getConnection("jdbc:mysql://192.168.56.101/TEST1", "app", "123abcABC!\"§");
                 //SQL abfrage
-               // myStmt = myConn.prepareStatement("select ldm = ? and plz = ? from DE ");
-                myStmt = myConn.prepareStatement("SELECT * FROM ENDLIST_CSV ec WHERE Land = ? and Plz=? and Ldm = ?");
-                //myStmt = myConn.prepareStatement("SELECT * FROM ENDLIST_CSV ec WHERE Plz = ? and Ldm=? and Land = ?");
+                myStmt = myConn.prepareStatement("SELECT * FROM ENDLIST ec WHERE Land = ? and Plz=? and Ldm = ?");
                 myStmt.setString(1,Land);
                 myStmt.setString(2, plz);
                 myStmt.setString(3, ldm);

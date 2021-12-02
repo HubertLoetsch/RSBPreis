@@ -99,6 +99,16 @@ public class SortingProgramm extends JFrame implements ActionListener {
         add(JL_Scheffknecht);
         add(JT_Scheffknecht);
 
+
+        //CSV Inport
+        JButton JL_Inport;
+        JL_Inport = new JButton("Inport CSV");
+        JL_Inport.setBounds(360,110,120,20);
+        add(JL_Inport);
+
+        ButtonHandler handler = new ButtonHandler();
+        JL_Inport.addActionListener(handler);
+
         setLayout(null);
         add(btn_search);
 
@@ -152,6 +162,18 @@ public class SortingProgramm extends JFrame implements ActionListener {
             return myRs;
         }
     }
+
+private class ButtonHandler implements ActionListener {
+    public void actionPerformed(ActionEvent event) {
+        InportCSV in = new InportCSV();
+        in.setSize(668, 350);
+        in.setVisible(true);
+
+        dispose();
+    }
+}
+
+
 
     public static void main(String[] args) {
         new SortingProgramm();

@@ -36,6 +36,8 @@ public class InportCSV extends JFrame {
     public InportCSV() {
 
 
+
+
         super("Inport CSVDatei");
         setSize(668, 345);
         setLocation(500, 280);
@@ -46,6 +48,16 @@ public class InportCSV extends JFrame {
         final JLabel lblResult = new JLabel("Result", JLabel.CENTER);
         lblResult.setBounds(150, 22, 370, 14);
         getContentPane().add(lblResult);
+
+        JButton Back;
+        Back = new JButton("Zurück");
+        Back.setBounds(350,228, 89, 23);
+        add(Back);
+
+        ButtonHandler handler = new ButtonHandler();
+        Back.addActionListener(handler);
+
+
 
         // Table
         table = new JTable();
@@ -132,11 +144,31 @@ public class InportCSV extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 SaveData(); // save Data
             }
+
+
         });
-        btnSave.setBounds(292, 228, 89, 23);
+        btnSave.setBounds(200, 228, 89, 23);
         getContentPane().add(btnSave);
 
+
+
+
+
     }
+    private class ButtonHandler implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
+            /*String msg;
+            msg = "Login Successful";
+            JOptionPane.showMessageDialog(null, msg);*/
+
+            SortingProgramm in = new SortingProgramm();
+            in.setSize(800, 500);
+            in.setVisible(true);
+            dispose();
+        }
+    }
+
+
 
 
     private void SaveData()
@@ -166,8 +198,8 @@ public class InportCSV extends JFrame {
 
                 // SQL Insert
 
-                String sql = "INSERT INTO customer "
-                        + "(CustomerID,Name,Email,CountryCode,Budget,Used) "
+                String sql = "INSERT INTO TestRSBData "
+                        + "(Land,Plz,Zone,Ldm,Braun,Tisa,Scheffknecht) "
                         + "VALUES ('" + Land + "','"
                         + PLZ + "','"
                         + Zone + "'" + ",'"

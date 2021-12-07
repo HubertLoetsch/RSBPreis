@@ -1,3 +1,5 @@
+import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
+
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,8 +38,6 @@ public class InportCSV extends JFrame {
     public InportCSV() {
 
 
-
-
         super("Inport CSVDatei");
         setSize(668, 345);
         setLocation(500, 280);
@@ -51,12 +51,11 @@ public class InportCSV extends JFrame {
 
         JButton Back;
         Back = new JButton("Zurück");
-        Back.setBounds(350,228, 89, 23);
+        Back.setBounds(350, 270, 89, 23);
         add(Back);
 
         ButtonHandler handler = new ButtonHandler();
         Back.addActionListener(handler);
-
 
 
         // Table
@@ -64,7 +63,7 @@ public class InportCSV extends JFrame {
         getContentPane().add(table);
 
         // Table Model
-        final DefaultTableModel model = (DefaultTableModel)table.getModel();
+        final DefaultTableModel model = (DefaultTableModel) table.getModel();
         model.addColumn("Land");
         model.addColumn("Plz");
         model.addColumn("Zone");
@@ -75,7 +74,7 @@ public class InportCSV extends JFrame {
 
         // ScrollPane
         JScrollPane scroll = new JScrollPane(table);
-        scroll.setBounds(45, 98, 580, 90);
+        scroll.setBounds(45, 98, 580, 170);
         getContentPane().add(scroll);
 
 
@@ -87,7 +86,7 @@ public class InportCSV extends JFrame {
 
                 JFileChooser fileopen = new JFileChooser();
                 FileFilter filter = new FileNameExtensionFilter(
-                        "Text/CSV file", "txt", "csv");
+                        "CSV file", "csv");
                 fileopen.addChoosableFileFilter(filter);
 
                 int ret = fileopen.showDialog(null, "Choose file");
@@ -106,8 +105,9 @@ public class InportCSV extends JFrame {
                             String[] arr = line.split(";");
 
                             model.addRow(new Object[0]);
-                            for(int x = 0;x < arr.length;x++){
-                                model.setValueAt( arr[x],row,x);
+                            for (int x = 0; x < arr.length; x++) {
+                                model.setValueAt(arr[x], row, x);
+
 
                             }
                             /*
@@ -122,7 +122,7 @@ public class InportCSV extends JFrame {
                           //  model.setValueAt(arr[7], row, 7);
 
                              */
-
+                            System.out.println(model);
                             row++;
                         }
                         br.close();
@@ -147,20 +147,14 @@ public class InportCSV extends JFrame {
 
 
         });
-        btnSave.setBounds(200, 228, 89, 23);
+        btnSave.setBounds(200, 270, 89, 23);
         getContentPane().add(btnSave);
 
 
-
-
-
     }
+
     private class ButtonHandler implements ActionListener {
         public void actionPerformed(ActionEvent event) {
-            /*String msg;
-            msg = "Login Successful";
-            JOptionPane.showMessageDialog(null, msg);*/
-
             SortingProgramm in = new SortingProgramm();
             in.setSize(800, 500);
             in.setVisible(true);
@@ -169,45 +163,51 @@ public class InportCSV extends JFrame {
     }
 
 
-
-
-    private void SaveData()
-    {
+    private void SaveData() {
         Connection connect = null;
         Statement s = null;
 
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                //Fehler
+                connect = DriverManager.getConnection( "jdbc:sqlserver://SQL03:1433;databaseName=RSBEndlist;user=RSBUser1;password=RSB2021!;");
 
+
+
+/*
             connect = DriverManager.getConnection(""
-                    + "jdbc:mysql://192.168.56.101/TestData"
-                    + "?user=app&password=123abcABC!\"§");
+                    + "jdbc:sqlserver://SQL03/RSBEndlist"
+                    + "?user=RSBUser1&password=RSB2021!");
+
+
+ */
+
+
 
             s = connect.createStatement();
 
-            for(int i = 0; i<table.getRowCount();i++)
-            {
+            for (int i = 0; i < table.getRowCount(); i++) {
                 String Land = table.getValueAt(i, 0).toString();
-                String PLZ = table.getValueAt(i,1).toString();
+                String PLZ = table.getValueAt(i, 1).toString();
                 String Zone = table.getValueAt(i, 2).toString();
                 String Ldm = table.getValueAt(i, 3).toString();
                 String Braun = table.getValueAt(i, 4).toString();
                 String Tisa = table.getValueAt(i, 5).toString();
-                String Scheffknecht= table.getValueAt(i, 6).toString();
+                String Scheffknecht = table.getValueAt(i, 6).toString();
+
+                System.out.println();
 
 
-                // SQL Insert
-
-                String sql = "INSERT INTO TestRSBData "
-                        + "(Land,Plz,Zone,Ldm,Braun,Tisa,Scheffknecht) "
-                        + "VALUES ('" + Land + "','"
-                        + PLZ + "','"
-                        + Zone + "'" + ",'"
-                        + Ldm + "','"
-                        + Braun + "','"
-                        + Tisa + "','"
-                        +Scheffknecht
-                        +"') ";
+                String sql = "INSERT INTO Endlist_Datenbank "
+                        + "(Land,PLZ,Zone,Ldm,Braun,Tisa,Scheffknecht) "
+                        + "VALUES ('" + Land + "',"
+                        + PLZ + ","
+                        + Zone + ","
+                        + Ldm + ","
+                        + Braun + ","
+                        + Tisa + ","
+                        + Scheffknecht + ")" ;
+                System.out.println(sql);
                 s.execute(sql);
             }
 

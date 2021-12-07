@@ -1,3 +1,5 @@
+import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
+
 import javax.swing.*;
 
 import java.awt.*;
@@ -147,9 +149,21 @@ public class SortingProgramm extends JFrame implements ActionListener {
         public ResultSet find(String plz, String ldm,String Land) {
             try {
                 //Verbindung Zum server
-                myConn = DriverManager.getConnection("jdbc:mysql://192.168.56.101/TestData", "app", "123abcABC!\"§");
+
+                //microsoftSql Connector
+                SQLServerDataSource ds = new SQLServerDataSource();
+                ds.setUser("RSBUser");
+                ds.setPassword("RSB2021!");
+                ds.setServerName("SQL03");
+                ds.setPortNumber(1433);
+                ds.setDatabaseName("RSBEndlist");
+                Connection myConn = ds.getConnection();
+
+
+                //Mysql Connector
+                //myConn = DriverManager.getConnection("jdbc:mysql://192.168.56.101/TestData", "app", "123abcABC!\"§");
                 //SQL abfrage
-                myStmt = myConn.prepareStatement("SELECT * FROM TestRSBData WHERE Land = ? and PLZ=? and Ldm = ?");
+                myStmt = myConn.prepareStatement("SELECT * FROM Endlist_Datenbank WHERE Land = ? and PLZ=? and Ldm = ?");
                 myStmt.setString(1,Land);
                 myStmt.setString(2, plz);
                 myStmt.setString(3, ldm);

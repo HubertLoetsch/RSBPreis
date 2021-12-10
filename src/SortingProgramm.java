@@ -152,7 +152,7 @@ public class SortingProgramm extends JFrame implements ActionListener {
 
                 //microsoftSql Connector
                 SQLServerDataSource ds = new SQLServerDataSource();
-                ds.setUser("RSBUser");
+                ds.setUser("RSBUser1");
                 ds.setPassword("RSB2021!");
                 ds.setServerName("SQL03");
                 ds.setPortNumber(1433);
@@ -163,7 +163,7 @@ public class SortingProgramm extends JFrame implements ActionListener {
                 //Mysql Connector
                 //myConn = DriverManager.getConnection("jdbc:mysql://192.168.56.101/TestData", "app", "123abcABC!\"§");
                 //SQL abfrage
-                myStmt = myConn.prepareStatement("SELECT * FROM Endlist_Datenbank WHERE Land = ? and PLZ=? and Ldm = ?");
+                myStmt = myConn.prepareStatement("SELECT * From TestRSBData WHERE Land = ? and PLZ=? and Ldm = ?");
                 myStmt.setString(1,Land);
                 myStmt.setString(2, plz);
                 myStmt.setString(3, ldm);

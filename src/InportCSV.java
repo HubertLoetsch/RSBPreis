@@ -1,5 +1,3 @@
-import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
-
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -110,7 +108,8 @@ public class InportCSV extends JFrame {
 
 
                             }
-                            /*
+
+/*
                             model.addRow(new Object[0]);
                             model.setValueAt(arr[0], row, 0);
                             model.setValueAt(arr[1], row, 1);
@@ -118,11 +117,13 @@ public class InportCSV extends JFrame {
                             model.setValueAt(arr[3], row, 3);
                             model.setValueAt(arr[4], row, 4);
                             model.setValueAt(arr[5], row, 5);
-                          //  model.setValueAt(arr[6], row, 6);
+                            model.setValueAt(arr[6], row, 6);
                           //  model.setValueAt(arr[7], row, 7);
 
-                             */
-                            System.out.println(model);
+
+ */
+
+
                             row++;
                         }
                         br.close();
@@ -172,19 +173,8 @@ public class InportCSV extends JFrame {
                 //Fehler
                 connect = DriverManager.getConnection( "jdbc:sqlserver://SQL03:1433;databaseName=RSBEndlist;user=RSBUser1;password=RSB2021!;");
 
-
-
-/*
-            connect = DriverManager.getConnection(""
-                    + "jdbc:sqlserver://SQL03/RSBEndlist"
-                    + "?user=RSBUser1&password=RSB2021!");
-
-
- */
-
-
-
             s = connect.createStatement();
+
 
             for (int i = 0; i < table.getRowCount(); i++) {
                 String Land = table.getValueAt(i, 0).toString();
@@ -195,10 +185,9 @@ public class InportCSV extends JFrame {
                 String Tisa = table.getValueAt(i, 5).toString();
                 String Scheffknecht = table.getValueAt(i, 6).toString();
 
-                System.out.println();
 
 
-                String sql = "INSERT INTO Endlist_Datenbank "
+                String sql = "INSERT INTO TestRSBData "
                         + "(Land,PLZ,Zone,Ldm,Braun,Tisa,Scheffknecht) "
                         + "VALUES ('" + Land + "',"
                         + PLZ + ","

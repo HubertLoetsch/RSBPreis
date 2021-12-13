@@ -1,0 +1,15 @@
+<component name="ArtifactManager">
+  <artifact name="Test:jar3">
+    <output-path>$PROJECT_DIR$/out/artifacts/Test_jar3</output-path>
+    <root id="root">
+      <element id="archive" name="Test.jar">
+        <element id="module-output" name="Test" />
+      </element>
+      <element id="library" level="project" name="lib" />
+      <element id="file-copy" path="$PROJECT_DIR$/../../sqljdbc_9.4/deu/mssql-jdbc-9.4.0.jre16.jar" />
+      <element id="library" level="project" name="JDK" />
+      <element id="library" level="project" name="mysql-connector-java-8.0.26" />
+      <element id="library" level="project" name="adaptive1" />
+    </root>
+  </artifact>
+</component>

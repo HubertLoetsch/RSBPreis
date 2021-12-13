@@ -1,3 +1,5 @@
 Manifest-Version: 1.0
 Main-Class: SortingProgramm
+Class-Path: mssql-jdbc-9.4.0.jre16.jar src.zip jrt-fs.jar mysql-connecto
+ r-java-8.0.27.jar protobuf-java-3.11.4.jar
 
